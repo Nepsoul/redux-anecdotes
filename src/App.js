@@ -1,22 +1,19 @@
 import { useSelector, useDispatch } from "react-redux";
-import { asObject } from "./reducers/anecdoteReducer";
+import { voteHandler, anecdoteHandler } from "./reducers/anecdoteReducer";
 
 const App = () => {
   const anecdotes = useSelector((state) => state);
   const dispatch = useDispatch();
 
   const vote = (id) => {
-    dispatch({
-      type: "VOTING",
-      id,
-    });
+    dispatch(voteHandler(id));
   };
 
   const addingAnecdote = (e) => {
     e.preventDefault();
     const newAnecdote = e.target.anecdote.value;
+    dispatch(anecdoteHandler(newAnecdote));
     e.target.anecdote.value = "";
-    dispatch(asObject(newAnecdote));
   };
 
   const sortedVotes = anecdotes.sort((a, b) => b.votes - a.votes);
