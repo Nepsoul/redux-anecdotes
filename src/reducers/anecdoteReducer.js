@@ -10,7 +10,6 @@ const anecdotesAtStart = [
 const getId = () => (100000 * Math.random()).toFixed(0);
 
 const asObject = (anecdote) => {
-  //console.log(anecdote, "anecdote");
   return {
     content: anecdote,
     id: getId(),
@@ -19,7 +18,6 @@ const asObject = (anecdote) => {
 };
 
 const initialState = anecdotesAtStart.map(asObject);
-//console.log(initialState, "initialstate");
 
 //reducer function for voting
 const reducer = (state = initialState, action) => {
@@ -31,9 +29,8 @@ const reducer = (state = initialState, action) => {
     case "VOTING":
       //action
       const newVote = state.map((anecdote) => {
-        // console.log(anecdote, "return anec");
         if (anecdote.id === action.id) {
-          return { ...anecdote, votes: anecdote.votes + action.votes };
+          return { ...anecdote, votes: anecdote.votes + 1 };
         }
         return anecdote;
       });

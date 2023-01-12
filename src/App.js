@@ -2,9 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 const App = () => {
   const anecdotes = useSelector((state) => state);
-  //console.log(anecdotes, "app anecdote");
   const dispatch = useDispatch();
-  let votes = 0;
 
   //action creating
   const vote = (id) => {
@@ -12,7 +10,6 @@ const App = () => {
     dispatch({
       type: "VOTING",
       id,
-      votes: votes + 1,
     });
   };
 
