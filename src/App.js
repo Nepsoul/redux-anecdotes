@@ -6,7 +6,6 @@ const App = () => {
   const dispatch = useDispatch();
 
   const vote = (id) => {
-    //console.log("vote", id);
     dispatch({
       type: "VOTING",
       id,
@@ -16,19 +15,16 @@ const App = () => {
   const addingAnecdote = (e) => {
     e.preventDefault();
     const newAnecdote = e.target.anecdote.value;
-    // console.log(e.target, "event.target");
-    // console.log(e.target.anecdote, "event target anec");
-    // console.log(e.target.anecdote.value, "event target value");
-
-    //console.log(newAnecdote, "new anec");
     e.target.anecdote.value = "";
     dispatch(asObject(newAnecdote));
   };
 
+  const sortedVotes = anecdotes.sort((a, b) => b.votes - a.votes);
+
   return (
     <div>
       <h2>Anecdotes</h2>
-      {anecdotes.map((anecdote) => (
+      {sortedVotes.map((anecdote) => (
         <div key={anecdote.id}>
           <div>{anecdote.content}</div>
           <div>
