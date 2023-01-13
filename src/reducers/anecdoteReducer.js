@@ -29,7 +29,7 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case "VOTING":
       const newVote = state.map((anecdote) => {
-        if (anecdote.id === action.id) {
+        if (anecdote.id === action.data.id) {
           return { ...anecdote, votes: anecdote.votes + 1 };
         }
         return anecdote;
@@ -38,7 +38,7 @@ const reducer = (state = initialState, action) => {
       return newVote;
 
     case "NEWANECDOTE":
-      const newAnec = asObject(action.content);
+      const newAnec = asObject(action.data.content);
       // console.log(action.content, "action.content");
       console.log(newAnec, "newanec");
       return [...state, newAnec];
@@ -51,9 +51,9 @@ const reducer = (state = initialState, action) => {
 export default reducer;
 
 export function voteHandler(id) {
-  return { type: "VOTING", id };
+  return { type: "VOTING", data: { id } };
 }
 
 export function anecdoteHandler(content) {
-  return { type: "NEWANECDOTE", content };
+  return { type: "NEWANECDOTE", data: { content } };
 }
