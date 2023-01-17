@@ -66,7 +66,7 @@ const anecdoteSlice = createSlice({
   initialState,
   reducers: {
     newVote(state, action) {
-      console.log("the state is", action.payload);
+      console.log("the state is", state);
       const id = action.payload;
       console.log(id, "id");
       return state.map((anecdote) => {
