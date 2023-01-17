@@ -1,3 +1,5 @@
+import { createSlice } from "@reduxjs/toolkit";
+
 const anecdotesAtStart = [
   "If it hurts, do it more often",
   "Adding manpower to a late software project makes it later!",
@@ -19,41 +21,74 @@ const asObject = (anecdote) => {
 };
 
 const initialState = anecdotesAtStart.map(asObject);
+console.log("the initsate", initialState);
 
-//reducer function for voting
-const reducer = (state = initialState, action) => {
-  // console.log("state now: ", state);
-  // console.log("action", action);
-  console.log("actiontype", action.type);
+// //reducer function for voting
+// const reducer = (state = initialState, action) => {
+//   // console.log("state now: ", state);
+//   // console.log("action", action);
+//   console.log("actiontype", action.type);
 
-  switch (action.type) {
-    case "VOTING":
-      const newVote = state.map((anecdote) => {
-        if (anecdote.id === action.data.id) {
+// switch (action.type) {
+//   case "VOTING":
+//       const newVote = state.map((anecdote) => {
+//         if (anecdote.id === action.data.id) {
+//           return { ...anecdote, votes: anecdote.votes + 1 };
+//         }
+//         return anecdote;
+//       });
+//       //console.log(newVote, "newVote");
+//       return newVote;
+
+//     case "NEWANECDOTE":
+//       const newAnec = asObject(action.data.content);
+//       // console.log(action.content, "action.content");
+//       console.log(newAnec, "newanec");
+//       return [...state, newAnec];
+
+//     default:
+//       return state;
+//   }
+// };
+
+// export default reducer;
+
+// export function voteHandler(id) {
+//   return { type: "VOTING", data: { id } };
+// }
+
+// export function anecdoteHandler(content) {
+//   return { type: "NEWANECDOTE", data: { content } };
+// }
+
+const anecdoteSlice = createSlice({
+  name: "anecdotes",
+  initialState,
+  reducers: {
+    newVote(state, action) {
+      console.log("the state is", action.payload);
+      const id = action.payload;
+      console.log(id, "id");
+      return state.map((anecdote) => {
+        if (anecdote.id === id) {
+          console.log("if enter");
           return { ...anecdote, votes: anecdote.votes + 1 };
         }
-        return anecdote;
+
+        return { ...anecdote };
       });
-      //console.log(newVote, "newVote");
-      return newVote;
+      //console.log(increaseAnec, "increaseane");
+      //return increaseAnec;
+    },
 
-    case "NEWANECDOTE":
-      const newAnec = asObject(action.data.content);
-      // console.log(action.content, "action.content");
-      console.log(newAnec, "newanec");
-      return [...state, newAnec];
+    newAnec(state, action) {
+      console.log(action.payload);
+      const content = asObject(action.payload);
 
-    default:
-      return state;
-  }
-};
+      return [...state, content];
+    },
+  },
+});
 
-export default reducer;
-
-export function voteHandler(id) {
-  return { type: "VOTING", data: { id } };
-}
-
-export function anecdoteHandler(content) {
-  return { type: "NEWANECDOTE", data: { content } };
-}
+export const { newVote, newAnec } = anecdoteSlice.actions;
+export default anecdoteSlice.reducer;
