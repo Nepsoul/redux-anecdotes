@@ -1,6 +1,7 @@
 //import { anecdoteHandler } from "../reducers/anecdoteReducer";
 import { newAnec } from "../reducers/anecdoteReducer";
 import { useDispatch } from "react-redux";
+import { setMessage } from "../reducers/notificationReducer";
 
 const AnecdoteForm = () => {
   const dispatch = useDispatch();
@@ -9,6 +10,10 @@ const AnecdoteForm = () => {
     e.preventDefault();
     const newAnecdote = e.target.anecdote.value;
     dispatch(newAnec(newAnecdote));
+    console.log("befoew setmessage");
+
+    dispatch(setMessage(`${newAnecdote} has been added`));
+
     e.target.anecdote.value = "";
   };
 
