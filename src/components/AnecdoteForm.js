@@ -10,7 +10,7 @@ const AnecdoteForm = () => {
     e.preventDefault();
     const newAnecdote = e.target.anecdote.value;
     dispatch(newAnec(newAnecdote));
-    console.log("befoew setmessage");
+    //console.log("befoew setmessage");
 
     dispatch(setMessage(`${newAnecdote} has been added`));
 

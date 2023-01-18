@@ -21,7 +21,7 @@ const asObject = (anecdote) => {
 };
 
 const initialState = anecdotesAtStart.map(asObject);
-console.log("the initsate", initialState);
+//console.log("the initsate", initialState);
 
 // //reducer function for voting
 // const reducer = (state = initialState, action) => {
@@ -66,9 +66,9 @@ const anecdoteSlice = createSlice({
   initialState,
   reducers: {
     newVote(state, action) {
-      console.log("the state is", state);
+      // console.log("the state is", state);
       const id = action.payload;
-      console.log(id, "id");
+      // console.log(id, "id");
       return state.map((anecdote) => {
         if (anecdote.id === id) {
           console.log("if enter");
@@ -82,7 +82,7 @@ const anecdoteSlice = createSlice({
     },
 
     newAnec(state, action) {
-      console.log(action.payload);
+      // console.log(action.payload);
       const content = asObject(action.payload);
 
       return [...state, content];
