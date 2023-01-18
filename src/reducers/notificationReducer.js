@@ -5,13 +5,14 @@ const notificationSlice = createSlice({
   initialState: "",
   reducers: {
     setMessage(state, action) {
-      // console.log("thw reducer entered");
       const message = action.payload;
-      //console.log("message", message);
       return message;
+    },
+    timeoutNotification() {
+      return null;
     },
   },
 });
 
-export const { setMessage } = notificationSlice.actions;
+export const { setMessage, timeoutNotification } = notificationSlice.actions;
 export default notificationSlice.reducer;

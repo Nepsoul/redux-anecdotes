@@ -2,6 +2,9 @@ import { useSelector } from "react-redux";
 
 const Notification = () => {
   const notifications = useSelector((state) => state.notification);
+  if (!notifications) {
+    return null;
+  }
   //console.log("notifications", notifications);
 
   const style = {
