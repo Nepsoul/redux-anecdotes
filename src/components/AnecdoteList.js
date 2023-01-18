@@ -9,7 +9,10 @@ import {
 const AnecdoteList = () => {
   const anecdotes = useSelector((state) => state.anecdote);
 
+  const filteredAnec = useSelector((state) => state.filter);
+
   const dispatch = useDispatch();
+
   const vote = (id) => {
     const increaseAnecdote = anecdotes.find((anecdote) => anecdote.id === id);
     dispatch(newVote(id));
@@ -20,8 +23,12 @@ const AnecdoteList = () => {
     }, 3000);
   };
 
-  const sortedVotes = [...anecdotes].sort((a, b) => b.votes - a.votes);
-
+  const filterList = anecdotes.filter((anecdote) => {
+    return anecdote.content.toLowerCase().includes(filteredAnec.toLowerCase());
+  });
+  console.log(filterList, "filterAnec");
+  const sortedVotes = [...filterList].sort((a, b) => b.votes - a.votes);
+  console.log(sortedVotes, "sortvotes");
   return (
     <div>
       {sortedVotes.map((anecdote) => (
