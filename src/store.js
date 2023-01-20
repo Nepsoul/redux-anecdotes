@@ -11,5 +11,5 @@ const store = configureStore({
     filter: filterReducer,
   },
 });
-
+console.log(anecdoteReducer, "anecdote fromstore");
 export default store;

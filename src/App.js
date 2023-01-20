@@ -2,8 +2,16 @@ import AnecdoteForm from "./components/AnecdoteForm";
 import AnecdoteList from "./components/AnecdoteList";
 import Notification from "./components/Notification";
 import Filter from "./components/FilterAnecdote";
+import anecdotesService from "./services/anecdotes";
+import { setAnecdote } from "./reducers/anecdoteReducer";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    anecdotesService.getAll().then((anecs) => dispatch(setAnecdote(anecs)));
+  });
   return (
     <div>
       <Notification />
