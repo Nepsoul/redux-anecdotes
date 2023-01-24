@@ -9,7 +9,8 @@ import {
 const AnecdoteList = () => {
   const anecdotes = useSelector((state) => state.anecdote);
 
-  const filteredAnec = useSelector((state) => state.filter);
+  const searchValue = useSelector((state) => state.filter);
+  console.log(searchValue, "search");
 
   const dispatch = useDispatch();
 
@@ -24,9 +25,9 @@ const AnecdoteList = () => {
   };
 
   const filterList = anecdotes.filter((anecdote) => {
-    return anecdote.content.toLowerCase().includes(filteredAnec.toLowerCase());
+    return anecdote.content?.toLowerCase().includes(searchValue?.toLowerCase());
   });
-  console.log(filterList, "filterAnec");
+  // console.log(filterList, "filterAnec");
   const sortedVotes = [...filterList].sort((a, b) => b.votes - a.votes);
   console.log(sortedVotes, "sortvotes");
   return (

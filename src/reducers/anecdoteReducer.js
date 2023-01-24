@@ -10,7 +10,7 @@ import anecdoteService from "../services/anecdotes";
 //   "Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.",
 // ];
 
-const getId = () => (100000 * Math.random()).toFixed(0);
+//const getId = () => (100000 * Math.random()).toFixed(0);
 
 //action creator
 // const asObject = (anecdote) => {
@@ -67,12 +67,13 @@ const anecdoteSlice = createSlice({
   initialState: [],
   reducers: {
     createAnecdote(state, action) {
-      const content = action.payload;
-      state.push({
-        content,
-        votes: 0,
-        id: getId(),
-      });
+      state.push(action.payload);
+      // const content = action.payload;
+      // state.push({
+      //   content,
+      //   votes: 0,
+      //   id: getId(),
+      // });
     },
 
     newVote(state, action) {
@@ -109,13 +110,19 @@ const anecdoteSlice = createSlice({
   },
 });
 
-export const { newVote, createAnecdote, appendAnecdote, setAnecdote } =
-  anecdoteSlice.actions;
+export const { newVote, appendAnecdote, setAnecdote } = anecdoteSlice.actions;
 export default anecdoteSlice.reducer;
 
 export const initializeAnecdote = () => {
   return async (dispatch) => {
     const anecdotes = await anecdoteService.getAll();
     dispatch(setAnecdote(anecdotes));
+  };
+};
+
+export const createAnecdote = (content) => {
+  return async (dispatch) => {
+    const newAnecdote = await anecdoteService.createNew(content);
+    dispatch(appendAnecdote(newAnecdote));
   };
 };
