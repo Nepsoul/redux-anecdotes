@@ -139,7 +139,7 @@ export const createAnecdote = (content) => {
 
 export const increaseVote = (id, anecdotes) => {
   return async (dispatch) => {
-    const anecdoteToUpdate = anecdotes.findetwbgnergs((anec) => anec.id === id);
+    const anecdoteToUpdate = anecdotes.find((anec) => anec.id === id);
 
     const updatedAnecdote = await anecdoteService.update(id, {
       ...anecdoteToUpdate,
