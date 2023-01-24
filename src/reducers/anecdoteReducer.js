@@ -78,18 +78,27 @@ const anecdoteSlice = createSlice({
 
     newVote(state, action) {
       // console.log("the state is", state);
-      const id = action.payload;
-      // console.log(id, "id");
-      return state.map((anecdote) => {
-        if (anecdote.id === id) {
-          console.log("if enter");
-          return { ...anecdote, votes: anecdote.votes + 1 };
-        }
+      // const id = action.payload;
+      // // console.log(id, "id");
+      // return state.map((anecdote) => {
+      //   if (anecdote.id === id) {
+      //     console.log("if enter");
+      //     return { ...anecdote, votes: anecdote.votes + 1 };
+      //   }
 
-        return { ...anecdote };
-      });
+      //   return { ...anecdote };
+      // });
       //console.log(increaseAnec, "increaseane");
       //return increaseAnec;
+
+      const updatedState = state.map((item) => {
+        if (item.id !== action.payload.id) {
+          return item;
+        }
+        return action.payload;
+      });
+
+      return updatedState;
     },
 
     // newAnec(state, action) {
@@ -123,6 +132,22 @@ export const initializeAnecdote = () => {
 export const createAnecdote = (content) => {
   return async (dispatch) => {
     const newAnecdote = await anecdoteService.createNew(content);
+
     dispatch(appendAnecdote(newAnecdote));
+  };
+};
+
+export const increaseVote = (id, anecdotes) => {
+  return async (dispatch) => {
+    const anecdoteToUpdate = anecdotes.findetwbgnergs((anec) => anec.id === id);
+
+    const updatedAnecdote = await anecdoteService.update(id, {
+      ...anecdoteToUpdate,
+      votes: Number(anecdoteToUpdate.votes) + 1,
+    });
+
+    console.log(updatedAnecdote, "updatedAnecdote");
+
+    dispatch(newVote(updatedAnecdote));
   };
 };

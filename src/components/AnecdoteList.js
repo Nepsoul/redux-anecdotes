@@ -1,5 +1,5 @@
 //import { voteHandler } from "../reducers/anecdoteReducer";
-import { newVote } from "../reducers/anecdoteReducer";
+import { increaseVote } from "../reducers/anecdoteReducer";
 import { useSelector, useDispatch } from "react-redux";
 import {
   setMessage,
@@ -8,26 +8,27 @@ import {
 
 const AnecdoteList = () => {
   const anecdotes = useSelector((state) => state.anecdote);
+  //console.log(anecdotes, "anecdote11");
 
   const searchValue = useSelector((state) => state.filter);
-  console.log(searchValue, "search");
+  // console.log(searchValue, "search");
 
   const dispatch = useDispatch();
 
   const vote = (id) => {
     const increaseAnecdote = anecdotes.find((anecdote) => anecdote.id === id);
-    dispatch(newVote(id));
+    dispatch(increaseVote(id, anecdotes));
 
     dispatch(setMessage(`you voted "${increaseAnecdote.content}"`));
     setTimeout(() => {
       dispatch(timeoutNotification());
     }, 3000);
   };
-
   const filterList = anecdotes.filter((anecdote) => {
     return anecdote.content?.toLowerCase().includes(searchValue?.toLowerCase());
   });
-  // console.log(filterList, "filterAnec");
+  console.log(filterList, "filterAnec");
+
   const sortedVotes = [...filterList].sort((a, b) => b.votes - a.votes);
   console.log(sortedVotes, "sortvotes");
   return (
