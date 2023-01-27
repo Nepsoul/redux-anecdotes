@@ -1,14 +1,12 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import { setFilter } from "../reducers/filterReducer";
 
-const FilterAnecdote = () => {
-  const dispatch = useDispatch();
-
+const FilterAnecdote = (props) => {
   const handleChage = (e) => {
     e.preventDefault();
     const filterAnec = e.target.value;
-    dispatch(setFilter(filterAnec));
+    props.setFilter(filterAnec);
   };
 
   const style = {
@@ -22,4 +20,17 @@ const FilterAnecdote = () => {
   );
 };
 
-export default FilterAnecdote;
+const mapStateToProps = () => {
+  //return { filter: state.filter };
+  return {};
+};
+
+const mapDispatchToProps = {
+  setFilter,
+};
+
+const ConnectedFilter = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(FilterAnecdote);
+export default ConnectedFilter;
